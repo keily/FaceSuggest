@@ -1,0 +1,29 @@
+<link href="css/jqac.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery_ac.js"></script>
+
+<script type="text/javascript">
+
+function get_answers(v,cont){
+  $.get('../s?',{q:v},
+        function(obj){
+          var res = [];
+          var suggests = obj;
+          for(var i=0;i<suggests.length;i++){
+            res.push({id:i,value:suggests[i]});
+          }
+          cont(res);
+        },
+        'json')
+}
+
+function print_sugg(v){ 
+  //$('#info').html('ID: '+v.id+'<br>VALUE: '+v.value+'<br>INFO: '+v.info+' <i>'+v.extra+'</i>'); 
+}
+
+</script>
+
+
+Auto Complete (AJAX):
+<input size="45" onfocus="$(this).autocomplete({ajax_get:get_answers, callback:print_sugg, cache:false,minchars:1,multi:true,delay:100})"/> 
